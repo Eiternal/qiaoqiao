@@ -20,7 +20,10 @@ else:
     instructions = "敲敲 0.9.4 · Windows 10/11 x64 · 预览版\n\n请完整解压整个文件夹，再运行 QiaoQiao.exe。\n已经包含 .NET 运行时，不需要另外安装。\n右键头像或系统托盘图标打开菜单。\n数字是当天按键＋鼠标点击次数，/min 是最近60秒。移动、滚动只算活跃。\n100次解锁一套装扮。进度保存在 %LOCALAPPDATA%\\QiaoQiao\\state.json。\n这是未进行代码签名的个人分享版本。\n程序不需要管理员权限，不记录文字内容，不联网上传。\nWindows 版经过自动构建和启动/渲染检查，尚未完成实体 Windows 电脑人工体验验收。\n"
 (stage / "开始使用.txt").write_text(instructions, encoding="utf-8-sig")
 shutil.copy2(root / "NOTICE.md", stage / "NOTICE.md")
+shutil.copy2(root / "LICENSE", stage / "LICENSE")
 shutil.copy2(root / "macos/MG-STYLES-15-LICENSE.txt", stage / "MG-STYLES-15-LICENSE.txt")
+if platform == "windows":
+    shutil.copytree(root / "third-party", stage / "third-party", dirs_exist_ok=True)
 target = dist / (stage.name + "-0.9.4.zip")
 with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
     for p in sorted(stage.rglob("*")):

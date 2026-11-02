@@ -111,7 +111,13 @@ public sealed class PetModel
         var idle = Math.Max(0, (now - lastActivity).TotalSeconds);
         return idle >= Saved.SleepSeconds ? "sleeping" : idle >= Saved.SleepSeconds - 5 ? "drowsy" : "idle";
     }
-    public void Activity(DateTimeOffset now) { Tick(now); if (!Paused) lastActivity = now; }
+    public void Activity(DateTimeOffset now)
+    {
+        Tick(now); if (Paused) return;
+        bool waking = Mood(now) is "sleeping" or "drowsy";
+        lastActivity = now;
+        if (waking) { React("waking", now, .6); Say("醒啦，继续陪你！", now); }
+    }
     public void Press(DateTimeOffset now, bool deleting = false)
     {
         Tick(now);
