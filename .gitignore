@@ -1,0 +1,17 @@
+.DS_Store
+bin/
+obj/
+dist/
+artifacts/
+*.user
+*.suo
+.vs/
+.idea/
+*.app/
+*.zip
+*.dmg
+*.log
+__pycache__/
+*.pyc
+.env*
+work/

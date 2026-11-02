@@ -1,0 +1,23 @@
+敲敲 0.9.4 美术与动画来源
+
+角色：小星狸，内置 image_gen 原创生成；未使用参考仓库的火焰精灵角色、影片画面或音频。
+本轮最终执行方式：生成角色设定与动作帧，Swift 负责轮廓提取、透明素材打包、落点注册、逐帧曝光、状态切换和特效。
+最终 48 张帧与 manifest 见 Assets/Frames/。原始生图图集与工作阶段提示词保留在本地制作工程中。
+互动与提醒动作表在先前运行中断后保留下来，对应提示词记录按发送内容重建，文件中已标明。
+
+参考项目：https://github.com/Vincentwei1021/mg-styles-15
+参考风格：https://github.com/Vincentwei1021/mg-styles-15/blob/main/prompts/05-cel-boil.md
+画笔参考：https://github.com/Vincentwei1021/mg-styles-15/blob/main/demos/05-cel-boil/js/engine.js
+采用其中的逐帧曝光节奏、短时 smear、种子驱动的特效线条及“中心线 + 压力宽度 → 轮廓多边形”思路。
+原库用代码绘制主体，本体验版主体由图片帧构成，两者制作方式有区别。
+参考代码为 MIT License，版权属于 Vincentwei1021。许可完整文本附于 MG-STYLES-15-LICENSE.txt，并随程序资源一起提供。
+
+原有 100 套装扮继续使用本项目的矢量绘制代码，已为新角色调整挂点和缩略图绘制方向。
+本版没有增加联网、录屏、聊天服务、自动授权或系统通知功能。
+
+0.8 装扮适配
+没有重新生成角色图片。原有 48 张角色帧保持，新增逐帧眼睛挂点与头部倾角，重新处理头饰与眼镜的定位。
+装扮的路径继续在代码中绘制，统一添加暖棕墨线、颜料颗粒与柔和高光，按图层缓存。
+取消随机领饰，重绘渔夫帽、动物发夹、青蛙帽与宇航配饰。
+挂点与绘制顺序参考通用的精灵分层方式；实现使用 AppKit 的坐标变换与剪裁。
+参考：https://developer.apple.com/documentation/spritekit/skspritenode/anchorpoint

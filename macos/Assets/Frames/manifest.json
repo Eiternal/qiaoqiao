@@ -1,0 +1,818 @@
+[
+  {
+    "file" : "idle_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      25.72516556291393,
+      60.2450331125828
+    ],
+    "sourceBounds" : [
+      13,
+      43,
+      316,
+      295
+    ],
+    "state" : "idle",
+    "width" : 360
+  },
+  {
+    "file" : "idle_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      25.72516556291393,
+      57.16556291390731
+    ],
+    "sourceBounds" : [
+      325,
+      40,
+      633,
+      295
+    ],
+    "state" : "idle",
+    "width" : 360
+  },
+  {
+    "file" : "idle_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      30.857615894039753,
+      55.11258278145698
+    ],
+    "sourceBounds" : [
+      639,
+      38,
+      940,
+      295
+    ],
+    "state" : "idle",
+    "width" : 360
+  },
+  {
+    "file" : "idle_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      30.34437086092717,
+      59.21854304635764
+    ],
+    "sourceBounds" : [
+      954,
+      41,
+      1250,
+      294
+    ],
+    "state" : "idle",
+    "width" : 360
+  },
+  {
+    "file" : "typing_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      27.410909090909087,
+      37.9490909090909
+    ],
+    "sourceBounds" : [
+      10,
+      333,
+      313,
+      607
+    ],
+    "state" : "typing",
+    "width" : 360
+  },
+  {
+    "file" : "typing_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      26.898181818181826,
+      55.381818181818176
+    ],
+    "sourceBounds" : [
+      327,
+      343,
+      632,
+      600
+    ],
+    "state" : "typing",
+    "width" : 360
+  },
+  {
+    "file" : "typing_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      28.949090909090927,
+      54.35636363636365
+    ],
+    "sourceBounds" : [
+      639,
+      343,
+      940,
+      601
+    ],
+    "state" : "typing",
+    "width" : 360
+  },
+  {
+    "file" : "typing_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      29.461818181818188,
+      54.35636363636365
+    ],
+    "sourceBounds" : [
+      953,
+      343,
+      1250,
+      601
+    ],
+    "state" : "typing",
+    "width" : 360
+  },
+  {
+    "file" : "fast_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      28.18032786885246,
+      48.59016393442624
+    ],
+    "sourceBounds" : [
+      11,
+      645,
+      315,
+      911
+    ],
+    "state" : "fast",
+    "width" : 360
+  },
+  {
+    "file" : "fast_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      25.13114754098359,
+      47.57377049180326
+    ],
+    "sourceBounds" : [
+      325,
+      649,
+      631,
+      916
+    ],
+    "state" : "fast",
+    "width" : 360
+  },
+  {
+    "file" : "fast_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      19.540983606557376,
+      48.59016393442624
+    ],
+    "sourceBounds" : [
+      635,
+      649,
+      938,
+      915
+    ],
+    "state" : "fast",
+    "width" : 360
+  },
+  {
+    "file" : "fast_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      23.60655737704917,
+      45.54098360655735
+    ],
+    "sourceBounds" : [
+      945,
+      655,
+      1250,
+      924
+    ],
+    "state" : "fast",
+    "width" : 360
+  },
+  {
+    "file" : "deleting_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      27.956834532374103,
+      52.172661870503646
+    ],
+    "sourceBounds" : [
+      12,
+      957,
+      322,
+      1220
+    ],
+    "state" : "deleting",
+    "width" : 360
+  },
+  {
+    "file" : "deleting_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      7.669064748201464,
+      49.12949640287775
+    ],
+    "sourceBounds" : [
+      328,
+      970,
+      638,
+      1224
+    ],
+    "state" : "deleting",
+    "width" : 360
+  },
+  {
+    "file" : "deleting_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      33.53597122302159,
+      61.30215827338134
+    ],
+    "sourceBounds" : [
+      642,
+      970,
+      940,
+      1224
+    ],
+    "state" : "deleting",
+    "width" : 360
+  },
+  {
+    "file" : "deleting_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      29.47841726618705,
+      37.97122302158277
+    ],
+    "sourceBounds" : [
+      949,
+      947,
+      1249,
+      1224
+    ],
+    "state" : "deleting",
+    "width" : 360
+  },
+  {
+    "file" : "drowsy_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      20.65319865319867,
+      52.70707070707073
+    ],
+    "sourceBounds" : [
+      11,
+      43,
+      307,
+      298
+    ],
+    "state" : "drowsy",
+    "width" : 360
+  },
+  {
+    "file" : "drowsy_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      15.434343434343447,
+      86.10774410774414
+    ],
+    "sourceBounds" : [
+      322,
+      74,
+      620,
+      297
+    ],
+    "state" : "drowsy",
+    "width" : 360
+  },
+  {
+    "file" : "drowsy_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      23.784511784511807,
+      48.53198653198655
+    ],
+    "sourceBounds" : [
+      632,
+      34,
+      939,
+      293
+    ],
+    "state" : "drowsy",
+    "width" : 360
+  },
+  {
+    "file" : "drowsy_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      23.26262626262627,
+      65.23232323232327
+    ],
+    "sourceBounds" : [
+      946,
+      54,
+      1242,
+      297
+    ],
+    "state" : "drowsy",
+    "width" : 360
+  },
+  {
+    "file" : "sleeping_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      20.069306930693074,
+      61.108910891089124
+    ],
+    "sourceBounds" : [
+      11,
+      342,
+      313,
+      594
+    ],
+    "state" : "sleeping",
+    "width" : 360
+  },
+  {
+    "file" : "sleeping_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      14.95379537953795,
+      109.1947194719472
+    ],
+    "sourceBounds" : [
+      321,
+      389,
+      623,
+      594
+    ],
+    "state" : "sleeping",
+    "width" : 360
+  },
+  {
+    "file" : "sleeping_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      22.627062706270635,
+      59.062706270627075
+    ],
+    "sourceBounds" : [
+      636,
+      337,
+      940,
+      591
+    ],
+    "state" : "sleeping",
+    "width" : 360
+  },
+  {
+    "file" : "sleeping_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      23.65016501650166,
+      75.43234323432344
+    ],
+    "sourceBounds" : [
+      951,
+      356,
+      1247,
+      594
+    ],
+    "state" : "sleeping",
+    "width" : 360
+  },
+  {
+    "file" : "waking_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      32.95833333333334,
+      65.45833333333337
+    ],
+    "sourceBounds" : [
+      11,
+      639,
+      309,
+      898
+    ],
+    "state" : "waking",
+    "width" : 360
+  },
+  {
+    "file" : "waking_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      35.40625,
+      38.041666666666686
+    ],
+    "sourceBounds" : [
+      319,
+      613,
+      624,
+      900
+    ],
+    "state" : "waking",
+    "width" : 360
+  },
+  {
+    "file" : "waking_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      32.95833333333334,
+      60.5625
+    ],
+    "sourceBounds" : [
+      633,
+      633,
+      942,
+      897
+    ],
+    "state" : "waking",
+    "width" : 360
+  },
+  {
+    "file" : "waking_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      32.95833333333334,
+      73.29166666666669
+    ],
+    "sourceBounds" : [
+      947,
+      647,
+      1249,
+      898
+    ],
+    "state" : "waking",
+    "width" : 360
+  },
+  {
+    "file" : "dragging_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      74.91803278688523,
+      38.15081967213115
+    ],
+    "sourceBounds" : [
+      54,
+      918,
+      287,
+      1222
+    ],
+    "state" : "dragging",
+    "width" : 360
+  },
+  {
+    "file" : "dragging_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      70.75737704918032,
+      40
+    ],
+    "sourceBounds" : [
+      349,
+      920,
+      591,
+      1222
+    ],
+    "state" : "dragging",
+    "width" : 360
+  },
+  {
+    "file" : "dragging_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      62.898360655737704,
+      40
+    ],
+    "sourceBounds" : [
+      649,
+      926,
+      880,
+      1228
+    ],
+    "state" : "dragging",
+    "width" : 360
+  },
+  {
+    "file" : "dragging_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      69.37049180327868,
+      39.075409836065546
+    ],
+    "sourceBounds" : [
+      980,
+      925,
+      1220,
+      1228
+    ],
+    "state" : "dragging",
+    "width" : 360
+  },
+  {
+    "file" : "petting_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      27.47297297297297,
+      41.32432432432432
+    ],
+    "sourceBounds" : [
+      21,
+      40,
+      318,
+      305
+    ],
+    "state" : "petting",
+    "width" : 360
+  },
+  {
+    "file" : "petting_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      27.996621621621614,
+      39.229729729729684
+    ],
+    "sourceBounds" : [
+      335,
+      38,
+      630,
+      305
+    ],
+    "state" : "petting",
+    "width" : 360
+  },
+  {
+    "file" : "petting_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      19.094594594594582,
+      39.229729729729684
+    ],
+    "sourceBounds" : [
+      638,
+      38,
+      937,
+      305
+    ],
+    "state" : "petting",
+    "width" : 360
+  },
+  {
+    "file" : "petting_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      24.331081081081066,
+      39.229729729729684
+    ],
+    "sourceBounds" : [
+      947,
+      38,
+      1242,
+      305
+    ],
+    "state" : "petting",
+    "width" : 360
+  },
+  {
+    "file" : "resizing_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      26.547368421052624,
+      78.58947368421053
+    ],
+    "sourceBounds" : [
+      18,
+      362,
+      323,
+      605
+    ],
+    "state" : "resizing",
+    "width" : 360
+  },
+  {
+    "file" : "resizing_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      38.42105263157896,
+      38.02105263157898
+    ],
+    "sourceBounds" : [
+      336,
+      323,
+      622,
+      607
+    ],
+    "state" : "resizing",
+    "width" : 360
+  },
+  {
+    "file" : "resizing_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      20.115789473684202,
+      87.49473684210528
+    ],
+    "sourceBounds" : [
+      629,
+      370,
+      945,
+      604
+    ],
+    "state" : "resizing",
+    "width" : 360
+  },
+  {
+    "file" : "resizing_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      34.95789473684212,
+      53.85263157894735
+    ],
+    "sourceBounds" : [
+      949,
+      337,
+      1244,
+      605
+    ],
+    "state" : "resizing",
+    "width" : 360
+  },
+  {
+    "file" : "rest_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      27.47297297297297,
+      45.51351351351349
+    ],
+    "sourceBounds" : [
+      22,
+      642,
+      324,
+      903
+    ],
+    "state" : "rest",
+    "width" : 360
+  },
+  {
+    "file" : "rest_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      29.043918918918905,
+      44.466216216216196
+    ],
+    "sourceBounds" : [
+      334,
+      641,
+      633,
+      903
+    ],
+    "state" : "rest",
+    "width" : 360
+  },
+  {
+    "file" : "rest_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      31.138513513513516,
+      43.418918918918905
+    ],
+    "sourceBounds" : [
+      643,
+      642,
+      938,
+      905
+    ],
+    "state" : "rest",
+    "width" : 360
+  },
+  {
+    "file" : "rest_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      27.47297297297297,
+      44.466216216216196
+    ],
+    "sourceBounds" : [
+      947,
+      641,
+      1241,
+      903
+    ],
+    "state" : "rest",
+    "width" : 360
+  },
+  {
+    "file" : "reminder_0.png",
+    "frame" : 0,
+    "height" : 340,
+    "registrationOffset" : [
+      27.81395348837208,
+      43.92691029900328
+    ],
+    "sourceBounds" : [
+      23,
+      939,
+      323,
+      1206
+    ],
+    "state" : "reminder",
+    "width" : 360
+  },
+  {
+    "file" : "reminder_1.png",
+    "frame" : 1,
+    "height" : 340,
+    "registrationOffset" : [
+      28.843853820597985,
+      42.897009966777375
+    ],
+    "sourceBounds" : [
+      333,
+      943,
+      633,
+      1211
+    ],
+    "state" : "reminder",
+    "width" : 360
+  },
+  {
+    "file" : "reminder_2.png",
+    "frame" : 2,
+    "height" : 340,
+    "registrationOffset" : [
+      4.1262458471760795,
+      39.807308970099655
+    ],
+    "sourceBounds" : [
+      642,
+      940,
+      948,
+      1211
+    ],
+    "state" : "reminder",
+    "width" : 360
+  },
+  {
+    "file" : "reminder_3.png",
+    "frame" : 3,
+    "height" : 340,
+    "registrationOffset" : [
+      31.933554817275734,
+      44.95681063122919
+    ],
+    "sourceBounds" : [
+      952,
+      945,
+      1244,
+      1211
+    ],
+    "state" : "reminder",
+    "width" : 360
+  }
+]

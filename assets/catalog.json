@@ -1,0 +1,1562 @@
+{
+  "height" : 236,
+  "outfits" : [
+    {
+      "id" : 0,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "奶糖小熊",
+      "style" : "bear",
+      "theme" : 0
+    },
+    {
+      "id" : 1,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "棉花小兔",
+      "style" : "bunny",
+      "theme" : 0
+    },
+    {
+      "id" : 2,
+      "layers" : [
+        "hat",
+        "face"
+      ],
+      "name" : "枫叶小狐",
+      "style" : "fox",
+      "theme" : 0
+    },
+    {
+      "id" : 3,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "森林小鹿",
+      "style" : "antlers",
+      "theme" : 0
+    },
+    {
+      "id" : 4,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "淘气小恶魔",
+      "style" : "devil",
+      "theme" : 0
+    },
+    {
+      "id" : 5,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "云端小天使",
+      "style" : "halo",
+      "theme" : 0
+    },
+    {
+      "id" : 6,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "荷塘小青蛙",
+      "style" : "frog",
+      "theme" : 0
+    },
+    {
+      "id" : 7,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "蜂蜜小蜜蜂",
+      "style" : "bee",
+      "theme" : 0
+    },
+    {
+      "id" : 8,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "蝶翼小精灵",
+      "style" : "butterfly",
+      "theme" : 0
+    },
+    {
+      "id" : 9,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "梦境独角兽",
+      "style" : "unicorn",
+      "theme" : 0
+    },
+    {
+      "id" : 10,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "薄荷棒球帽",
+      "style" : "cap",
+      "theme" : 1
+    },
+    {
+      "id" : 11,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "莓果贝雷帽",
+      "style" : "beret",
+      "theme" : 1
+    },
+    {
+      "id" : 12,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "海盐渔夫帽",
+      "style" : "bucket",
+      "theme" : 1
+    },
+    {
+      "id" : 13,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "云朵毛线帽",
+      "style" : "beanie",
+      "theme" : 1
+    },
+    {
+      "id" : 14,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "复古飞行帽",
+      "style" : "aviator",
+      "theme" : 1
+    },
+    {
+      "id" : 15,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "格纹小侦探",
+      "style" : "detective",
+      "theme" : 1
+    },
+    {
+      "id" : 16,
+      "layers" : [
+        "face"
+      ],
+      "name" : "夏日墨镜",
+      "style" : "sunglasses",
+      "theme" : 1
+    },
+    {
+      "id" : 17,
+      "layers" : [
+        "face"
+      ],
+      "name" : "圆框小书虫",
+      "style" : "glasses",
+      "theme" : 1
+    },
+    {
+      "id" : 18,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "音乐耳机",
+      "style" : "headphones",
+      "theme" : 1
+    },
+    {
+      "id" : 19,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "星星睡帽",
+      "style" : "sleepCap",
+      "theme" : 1
+    },
+    {
+      "id" : 20,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "奶油小厨师",
+      "style" : "chef",
+      "theme" : 2
+    },
+    {
+      "id" : 21,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "温柔小医生",
+      "style" : "doctor",
+      "theme" : 2
+    },
+    {
+      "id" : 22,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "元气小护士",
+      "style" : "nurse",
+      "theme" : 2
+    },
+    {
+      "id" : 23,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "勇敢消防员",
+      "style" : "firefighter",
+      "theme" : 2
+    },
+    {
+      "id" : 24,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "西部小警长",
+      "style" : "sheriff",
+      "theme" : 2
+    },
+    {
+      "id" : 25,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "认真建筑师",
+      "style" : "hardhat",
+      "theme" : 2
+    },
+    {
+      "id" : 26,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "月球宇航员",
+      "style" : "astronaut",
+      "theme" : 2
+    },
+    {
+      "id" : 27,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "远航小船长",
+      "style" : "captain",
+      "theme" : 2
+    },
+    {
+      "id" : 28,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "礼帽魔术师",
+      "style" : "topHat",
+      "theme" : 2
+    },
+    {
+      "id" : 29,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "毕业小博士",
+      "style" : "graduate",
+      "theme" : 2
+    },
+    {
+      "id" : 30,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "蜂蜜小国王",
+      "style" : "crown",
+      "theme" : 3
+    },
+    {
+      "id" : 31,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "珍珠小公主",
+      "style" : "tiara",
+      "theme" : 3
+    },
+    {
+      "id" : 32,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "星月小法师",
+      "style" : "wizard",
+      "theme" : 3
+    },
+    {
+      "id" : 33,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "南瓜小女巫",
+      "style" : "witch",
+      "theme" : 3
+    },
+    {
+      "id" : 34,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "翎羽小勇士",
+      "style" : "warrior",
+      "theme" : 3
+    },
+    {
+      "id" : 35,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "银甲小骑士",
+      "style" : "knight",
+      "theme" : 3
+    },
+    {
+      "id" : 36,
+      "layers" : [
+        "hat",
+        "face"
+      ],
+      "name" : "寻宝小海盗",
+      "style" : "pirate",
+      "theme" : 3
+    },
+    {
+      "id" : 37,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "月影小忍者",
+      "style" : "ninja",
+      "theme" : 3
+    },
+    {
+      "id" : 38,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "叶语小精灵",
+      "style" : "elf",
+      "theme" : 3
+    },
+    {
+      "id" : 39,
+      "layers" : [
+        "behind",
+        "hat",
+        "face"
+      ],
+      "name" : "翡翠小龙",
+      "style" : "dragon",
+      "theme" : 3
+    },
+    {
+      "id" : 40,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "草莓奶昔",
+      "style" : "strawberry",
+      "theme" : 4
+    },
+    {
+      "id" : 41,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "樱桃汽水",
+      "style" : "cherry",
+      "theme" : 4
+    },
+    {
+      "id" : 42,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "西瓜冰沙",
+      "style" : "watermelon",
+      "theme" : 4
+    },
+    {
+      "id" : 43,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "柠檬苏打",
+      "style" : "lemon",
+      "theme" : 4
+    },
+    {
+      "id" : 44,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "蜜桃乌龙",
+      "style" : "peach",
+      "theme" : 4
+    },
+    {
+      "id" : 45,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "葡萄果冻",
+      "style" : "grape",
+      "theme" : 4
+    },
+    {
+      "id" : 46,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "菠萝假日",
+      "style" : "pineapple",
+      "theme" : 4
+    },
+    {
+      "id" : 47,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "糖霜甜甜圈",
+      "style" : "donut",
+      "theme" : 4
+    },
+    {
+      "id" : 48,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "奶油纸杯糕",
+      "style" : "cupcake",
+      "theme" : 4
+    },
+    {
+      "id" : 49,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "彩虹冰淇淋",
+      "style" : "icecream",
+      "theme" : 4
+    },
+    {
+      "id" : 50,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "向日葵早安",
+      "style" : "sunflower",
+      "theme" : 5
+    },
+    {
+      "id" : 51,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "雏菊午后",
+      "style" : "daisy",
+      "theme" : 5
+    },
+    {
+      "id" : 52,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "玫瑰来信",
+      "style" : "rose",
+      "theme" : 5
+    },
+    {
+      "id" : 53,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "郁金香春日",
+      "style" : "tulip",
+      "theme" : 5
+    },
+    {
+      "id" : 54,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "幸运四叶草",
+      "style" : "clover",
+      "theme" : 5
+    },
+    {
+      "id" : 55,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "森林小蘑菇",
+      "style" : "mushroom",
+      "theme" : 5
+    },
+    {
+      "id" : 56,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "沙漠仙人掌",
+      "style" : "cactus",
+      "theme" : 5
+    },
+    {
+      "id" : 57,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "秋日小松果",
+      "style" : "pinecone",
+      "theme" : 5
+    },
+    {
+      "id" : 58,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "发芽啦",
+      "style" : "sprout",
+      "theme" : 5
+    },
+    {
+      "id" : 59,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "荷叶小雨衣",
+      "style" : "lotus",
+      "theme" : 5
+    },
+    {
+      "id" : 60,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "暖阳小太阳",
+      "style" : "sun",
+      "theme" : 6
+    },
+    {
+      "id" : 61,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "晚安小月亮",
+      "style" : "moon",
+      "theme" : 6
+    },
+    {
+      "id" : 62,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "土星旅行家",
+      "style" : "saturn",
+      "theme" : 6
+    },
+    {
+      "id" : 63,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "闪闪小星星",
+      "style" : "star",
+      "theme" : 6
+    },
+    {
+      "id" : 64,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "许愿小流星",
+      "style" : "comet",
+      "theme" : 6
+    },
+    {
+      "id" : 65,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "雨后彩虹",
+      "style" : "rainbow",
+      "theme" : 6
+    },
+    {
+      "id" : 66,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "软绵小云朵",
+      "style" : "cloud",
+      "theme" : 6
+    },
+    {
+      "id" : 67,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "能量小闪电",
+      "style" : "lightning",
+      "theme" : 6
+    },
+    {
+      "id" : 68,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "初雪小雪花",
+      "style" : "snowflake",
+      "theme" : 6
+    },
+    {
+      "id" : 69,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "晶莹小雨滴",
+      "style" : "drop",
+      "theme" : 6
+    },
+    {
+      "id" : 70,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "圣诞小红帽",
+      "style" : "santa",
+      "theme" : 7
+    },
+    {
+      "id" : 71,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "圣诞小麋鹿",
+      "style" : "reindeer",
+      "theme" : 7
+    },
+    {
+      "id" : 72,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "万圣小南瓜",
+      "style" : "pumpkin",
+      "theme" : 7
+    },
+    {
+      "id" : 73,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "害羞小幽灵",
+      "style" : "ghost",
+      "theme" : 7
+    },
+    {
+      "id" : 74,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "生日快乐帽",
+      "style" : "party",
+      "theme" : 7
+    },
+    {
+      "id" : 75,
+      "layers" : [
+        "hat",
+        "face"
+      ],
+      "name" : "月光舞会",
+      "style" : "mask",
+      "theme" : 7
+    },
+    {
+      "id" : 76,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "春日花环",
+      "style" : "wreath",
+      "theme" : 7
+    },
+    {
+      "id" : 77,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "元宵小灯笼",
+      "style" : "lantern",
+      "theme" : 7
+    },
+    {
+      "id" : 78,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "招财小元宝",
+      "style" : "ingot",
+      "theme" : 7
+    },
+    {
+      "id" : 79,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "海边扶桑花",
+      "style" : "hibiscus",
+      "theme" : 7
+    },
+    {
+      "id" : 80,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "键盘小工匠",
+      "style" : "keycap",
+      "theme" : 8
+    },
+    {
+      "id" : 81,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "齿轮工程师",
+      "style" : "gear",
+      "theme" : 8
+    },
+    {
+      "id" : 82,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "铅笔小作家",
+      "style" : "pencil",
+      "theme" : 8
+    },
+    {
+      "id" : 83,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "调色小画家",
+      "style" : "painter",
+      "theme" : 8
+    },
+    {
+      "id" : 84,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "快门摄影师",
+      "style" : "camera",
+      "theme" : 8
+    },
+    {
+      "id" : 85,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "云朵小邮差",
+      "style" : "postman",
+      "theme" : 8
+    },
+    {
+      "id" : 86,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "旋律小乐手",
+      "style" : "musician",
+      "theme" : 8
+    },
+    {
+      "id" : 87,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "活力运动员",
+      "style" : "sport",
+      "theme" : 8
+    },
+    {
+      "id" : 88,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "阳台小园丁",
+      "style" : "gardener",
+      "theme" : 8
+    },
+    {
+      "id" : 89,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "拿铁咖啡师",
+      "style" : "barista",
+      "theme" : 8
+    },
+    {
+      "id" : 90,
+      "layers" : [
+        "hat",
+        "face"
+      ],
+      "name" : "霓虹护目镜",
+      "style" : "cyber",
+      "theme" : 9
+    },
+    {
+      "id" : 91,
+      "layers" : [
+        "hat",
+        "face"
+      ],
+      "name" : "蒸汽时钟匠",
+      "style" : "steampunk",
+      "theme" : 9
+    },
+    {
+      "id" : 92,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "日曜金王冠",
+      "style" : "goldenCrown",
+      "theme" : 9
+    },
+    {
+      "id" : 93,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "冰晶小王冠",
+      "style" : "crystalCrown",
+      "theme" : 9
+    },
+    {
+      "id" : 94,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "蝴蝶结绅士",
+      "style" : "ribbonTopHat",
+      "theme" : 9
+    },
+    {
+      "id" : 95,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "宝石小女王",
+      "style" : "jewelCrown",
+      "theme" : 9
+    },
+    {
+      "id" : 96,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "银河电台",
+      "style" : "galaxyHeadset",
+      "theme" : 9
+    },
+    {
+      "id" : 97,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "星际飞行员",
+      "style" : "spacePilot",
+      "theme" : 9
+    },
+    {
+      "id" : 98,
+      "layers" : [
+        "hat"
+      ],
+      "name" : "极夜小巫师",
+      "style" : "neonWizard",
+      "theme" : 9
+    },
+    {
+      "id" : 99,
+      "layers" : [
+        "behind",
+        "hat"
+      ],
+      "name" : "极光守护者",
+      "style" : "aurora",
+      "theme" : 9
+    }
+  ],
+  "states" : {
+    "deleting" : {
+      "exposures" : [
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          9
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.016499648470547669,
+          "faceScale" : 0.79228891324512629,
+          "headScale" : 1,
+          "x" : 131.27777777777777,
+          "y" : 123.88235294117646
+        },
+        {
+          "angle" : 0.082319279620335195,
+          "faceScale" : 0.79487276268034979,
+          "headScale" : 1,
+          "x" : 131.83333333333334,
+          "y" : 135.41176470588235
+        },
+        {
+          "angle" : -0.088350710752202438,
+          "faceScale" : 0.79011880528688694,
+          "headScale" : 1,
+          "x" : 128.36111111111111,
+          "y" : 133.1764705882353
+        },
+        {
+          "angle" : 0.19799086874490932,
+          "faceScale" : 0.79747262691833243,
+          "headScale" : 1,
+          "x" : 129.61111111111111,
+          "y" : 126.35294117647059
+        }
+      ]
+    },
+    "dragging" : {
+      "exposures" : [
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.07317229446719474,
+          "faceScale" : 0.53641481524325207,
+          "headScale" : 0.78000000000000003,
+          "x" : 132.38888888888889,
+          "y" : 94
+        },
+        {
+          "angle" : 0.42852808290766686,
+          "faceScale" : 0.50333093676375462,
+          "headScale" : 0.78000000000000003,
+          "x" : 126.13888888888889,
+          "y" : 101.64705882352942
+        },
+        {
+          "angle" : -0.49239664328404087,
+          "faceScale" : 0.52537641888904252,
+          "headScale" : 0.78000000000000003,
+          "x" : 141.55555555555554,
+          "y" : 103.17647058823529
+        },
+        {
+          "angle" : 0.015261136249813883,
+          "faceScale" : 0.57105415293734008,
+          "headScale" : 0.78000000000000003,
+          "x" : 132.80555555555554,
+          "y" : 98.588235294117652
+        }
+      ]
+    },
+    "drowsy" : {
+      "exposures" : [
+        [
+          0,
+          18
+        ],
+        [
+          1,
+          16
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          3,
+          22
+        ],
+        [
+          1,
+          52
+        ]
+      ],
+      "loops" : false,
+      "rig" : [
+        {
+          "angle" : 0.077265231140953156,
+          "faceScale" : 0.95965322319804192,
+          "headScale" : 1,
+          "x" : 119.05555555555556,
+          "y" : 144.8235294117647
+        },
+        {
+          "angle" : 0.074738656351819102,
+          "faceScale" : 0.93367644131608296,
+          "headScale" : 1,
+          "x" : 121.13888888888889,
+          "y" : 150.11764705882354
+        },
+        {
+          "angle" : 0.13439620830796933,
+          "faceScale" : 1.1056492987808246,
+          "headScale" : 1,
+          "x" : 128.08333333333334,
+          "y" : 128.47058823529412
+        },
+        {
+          "angle" : 0.11661492461891482,
+          "faceScale" : 0.97369132378819245,
+          "headScale" : 1,
+          "x" : 124.05555555555557,
+          "y" : 138.8235294117647
+        }
+      ]
+    },
+    "fast" : {
+      "exposures" : [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.14556931870949746,
+          "faceScale" : 0.81104718997441128,
+          "headScale" : 1,
+          "x" : 131.27777777777777,
+          "y" : 127.64705882352941
+        },
+        {
+          "angle" : 0.054948450295691044,
+          "faceScale" : 0.79337850525529197,
+          "headScale" : 1,
+          "x" : 129.05555555555557,
+          "y" : 134.58823529411762
+        },
+        {
+          "angle" : 0.16565068540458472,
+          "faceScale" : 0.79274467193675924,
+          "headScale" : 1,
+          "x" : 126.83333333333334,
+          "y" : 135.05882352941177
+        },
+        {
+          "angle" : 0.08777995689546586,
+          "faceScale" : 0.79524290402435149,
+          "headScale" : 1,
+          "x" : 127.66666666666666,
+          "y" : 130.35294117647061
+        }
+      ]
+    },
+    "idle" : {
+      "exposures" : [
+        [
+          0,
+          18
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          18
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          18
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.10280371925329204,
+          "faceScale" : 0.80672837929843266,
+          "headScale" : 1,
+          "x" : 129.61111111111111,
+          "y" : 129.05882352941177
+        },
+        {
+          "angle" : 0.088655881867437461,
+          "faceScale" : 0.83661903689455686,
+          "headScale" : 1,
+          "x" : 131,
+          "y" : 128.58823529411765
+        },
+        {
+          "angle" : 0.060073818108738082,
+          "faceScale" : 0.87091259361997253,
+          "headScale" : 1,
+          "x" : 130.58333333333331,
+          "y" : 129.41176470588235
+        },
+        {
+          "angle" : 0.066773646039811951,
+          "faceScale" : 0.78363936927919742,
+          "headScale" : 1,
+          "x" : 130.72222222222223,
+          "y" : 129.41176470588235
+        }
+      ]
+    },
+    "petting" : {
+      "exposures" : [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          3,
+          11
+        ]
+      ],
+      "loops" : false,
+      "rig" : [
+        {
+          "angle" : 0.12185953693185142,
+          "faceScale" : 0.86028910213461984,
+          "headScale" : 1,
+          "x" : 127.11111111111111,
+          "y" : 128.47058823529412
+        },
+        {
+          "angle" : 0.09335018334135177,
+          "faceScale" : 0.98164028276358251,
+          "headScale" : 1,
+          "x" : 127.11111111111111,
+          "y" : 125.52941176470588
+        },
+        {
+          "angle" : 0.27518924912917153,
+          "faceScale" : 0.9460916706887007,
+          "headScale" : 1,
+          "x" : 122.80555555555556,
+          "y" : 128.58823529411765
+        },
+        {
+          "angle" : 0.13530270836415714,
+          "faceScale" : 0.87216867795260899,
+          "headScale" : 1,
+          "x" : 126,
+          "y" : 126.23529411764706
+        }
+      ]
+    },
+    "reminder" : {
+      "exposures" : [
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          10
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.12958646952769515,
+          "faceScale" : 0.87669226318346238,
+          "headScale" : 1,
+          "x" : 128.08333333333331,
+          "y" : 128
+        },
+        {
+          "angle" : 0.17778213471047719,
+          "faceScale" : 0.86235762301699004,
+          "headScale" : 1,
+          "x" : 126.97222222222223,
+          "y" : 125.76470588235293
+        },
+        {
+          "angle" : 0.20396369617889856,
+          "faceScale" : 0.90350197904834229,
+          "headScale" : 1,
+          "x" : 132.11111111111111,
+          "y" : 124.70588235294116
+        },
+        {
+          "angle" : 0.11594817709229627,
+          "faceScale" : 0.82860893100249466,
+          "headScale" : 1,
+          "x" : 128.22222222222223,
+          "y" : 125.88235294117646
+        }
+      ]
+    },
+    "resizing" : {
+      "exposures" : [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.10087728373141287,
+          "faceScale" : 0.82208052741663407,
+          "headScale" : 1.03,
+          "x" : 125.02777777777777,
+          "y" : 141.29411764705884
+        },
+        {
+          "angle" : 0.11574333840362262,
+          "faceScale" : 0.79233840353597251,
+          "headScale" : 0.95999999999999996,
+          "x" : 127.25,
+          "y" : 121.52941176470588
+        },
+        {
+          "angle" : 0.082100747965773685,
+          "faceScale" : 0.90324823894543016,
+          "headScale" : 1.0600000000000001,
+          "x" : 124.75,
+          "y" : 143.1764705882353
+        },
+        {
+          "angle" : 0.12716796506038794,
+          "faceScale" : 0.82455951532170169,
+          "headScale" : 0.98999999999999999,
+          "x" : 127.25,
+          "y" : 129.64705882352942
+        }
+      ]
+    },
+    "rest" : {
+      "exposures" : [
+        [
+          0,
+          9
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          3,
+          13
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.057043137331575552,
+          "faceScale" : 0.91712958845305348,
+          "headScale" : 1,
+          "x" : 129.33333333333331,
+          "y" : 132
+        },
+        {
+          "angle" : 0.13246494546328411,
+          "faceScale" : 0.92373034702553547,
+          "headScale" : 1,
+          "x" : 127.94444444444446,
+          "y" : 127.52941176470588
+        },
+        {
+          "angle" : 0.11371744454668228,
+          "faceScale" : 0.92159028619878902,
+          "headScale" : 1,
+          "x" : 128.22222222222223,
+          "y" : 128.47058823529412
+        },
+        {
+          "angle" : 0.12042289560684315,
+          "faceScale" : 0.87050177320419009,
+          "headScale" : 1,
+          "x" : 127.66666666666666,
+          "y" : 126.35294117647059
+        }
+      ]
+    },
+    "sleeping" : {
+      "exposures" : [
+        [
+          1,
+          24
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.16324028278483707,
+          "faceScale" : 0.93840115704931459,
+          "headScale" : 1,
+          "x" : 118.22222222222223,
+          "y" : 145.52941176470586
+        },
+        {
+          "angle" : 0.018214304253708544,
+          "faceScale" : 0.95694885816560527,
+          "headScale" : 1,
+          "x" : 119.05555555555556,
+          "y" : 150.58823529411765
+        },
+        {
+          "angle" : 0.096257530326643539,
+          "faceScale" : 0.99741557022398075,
+          "headScale" : 1,
+          "x" : 123.91666666666667,
+          "y" : 132.47058823529412
+        },
+        {
+          "angle" : 0.12682977470177675,
+          "faceScale" : 0.96453740391146736,
+          "headScale" : 1,
+          "x" : 121.55555555555556,
+          "y" : 145.1764705882353
+        }
+      ]
+    },
+    "typing" : {
+      "exposures" : [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "loops" : true,
+      "rig" : [
+        {
+          "angle" : 0.16571974488432162,
+          "faceScale" : 0.81883125511099297,
+          "headScale" : 1,
+          "x" : 130.58333333333331,
+          "y" : 122.94117647058823
+        },
+        {
+          "angle" : 0.042327644561980203,
+          "faceScale" : 0.82378311437974783,
+          "headScale" : 1,
+          "x" : 130.44444444444446,
+          "y" : 134.58823529411762
+        },
+        {
+          "angle" : 0.086660235032608626,
+          "faceScale" : 0.80549186384190197,
+          "headScale" : 1,
+          "x" : 130.44444444444446,
+          "y" : 130.8235294117647
+        },
+        {
+          "angle" : 0.049463059543470168,
+          "faceScale" : 0.79315113165847839,
+          "headScale" : 1,
+          "x" : 130.44444444444443,
+          "y" : 134.47058823529412
+        }
+      ]
+    },
+    "waking" : {
+      "exposures" : [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          13
+        ]
+      ],
+      "loops" : false,
+      "rig" : [
+        {
+          "angle" : 0.09131923406503481,
+          "faceScale" : 0.76450232769002491,
+          "headScale" : 1,
+          "x" : 127.38888888888889,
+          "y" : 134.35294117647061
+        },
+        {
+          "angle" : 0.14965791796845213,
+          "faceScale" : 0.99361679733937336,
+          "headScale" : 1,
+          "x" : 131.41666666666669,
+          "y" : 111.05882352941177
+        },
+        {
+          "angle" : 0.060430533001108934,
+          "faceScale" : 0.79362973712627249,
+          "headScale" : 1,
+          "x" : 130.72222222222223,
+          "y" : 130.23529411764707
+        },
+        {
+          "angle" : 0.10405472918491215,
+          "faceScale" : 0.75511307002293004,
+          "headScale" : 1,
+          "x" : 127.11111111111111,
+          "y" : 134.58823529411762
+        }
+      ]
+    }
+  },
+  "themes" : [
+    "动物派对",
+    "日常穿搭",
+    "职业猫猫",
+    "奇幻冒险",
+    "甜品小铺",
+    "自然花园",
+    "星空旅行",
+    "节庆派对",
+    "桌面工坊",
+    "限定收藏"
+  ],
+  "width" : 264
+}

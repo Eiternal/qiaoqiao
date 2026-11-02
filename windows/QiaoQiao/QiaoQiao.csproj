@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>QiaoQiao</AssemblyName>
+    <Version>0.9.4</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+    <DebugType>none</DebugType>
+    <PublishTrimmed>false</PublishTrimmed>
+    <!-- WPF owns process DPI via app.manifest. Forms is used only for the tray. -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../QiaoQiao.Core/QiaoQiao.Core.csproj" />
+    <Content Include="../../macos/Assets/Frames/*.png" Link="Assets/Frames/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../assets/**/*" Link="Assets/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../macos/MG-STYLES-15-LICENSE.txt" Link="MG-STYLES-15-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
