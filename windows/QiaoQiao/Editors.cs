@@ -22,7 +22,9 @@ internal static class Editors
         var window = Window("敲敲 · 小衣柜", 660, 580);
         var root = new DockPanel { Margin = new Thickness(18) }; window.Content = root;
         var top = new StackPanel(); DockPanel.SetDock(top, Dock.Top); root.Children.Add(top);
-        top.Children.Add(Label($"已收集 {owner.Model.Unlocked}/100 · 每 100 次按下解锁一套", 18));
+        var progress = Label($"已收集 {owner.Model.Unlocked}/100 · 每 100 次按下解锁一套", 18);
+        top.Children.Add(progress);
+        var outfitButtons = new List<(Button Button, int Id)>();
         var automatic = new CheckBox { Content = "解锁后自动换装", IsChecked = owner.Model.Saved.Automatic, Margin = new Thickness(0, 8, 0, 10) };
         automatic.Checked += (_, _) => owner.Model.SetAutomatic(true, DateTimeOffset.Now);
         automatic.Unchecked += (_, _) => owner.Model.SetAutomatic(false, DateTimeOffset.Now); top.Children.Add(automatic);
@@ -43,11 +45,24 @@ internal static class Editors
                 int id = outfit.Id;
                 var button = new Button { Content = stack, IsEnabled = unlocked, Opacity = unlocked ? 1 : .45, Margin = new Thickness(5), Padding = new Thickness(2), ToolTip = outfit.Name };
                 button.Click += (_, _) => { owner.Model.Equip(id, DateTimeOffset.Now); owner.Pet.InvalidateVisual(); };
+                outfitButtons.Add((button, id));
                 wrap.Children.Add(button);
             }
             tabs.Items.Add(new TabItem { Header = owner.Catalog.Themes[theme], Content = new ScrollViewer { Content = wrap, VerticalScrollBarVisibility = ScrollBarVisibility.Auto } });
         }
-        return window;
+        int unlockedBefore = owner.Model.Unlocked;
+        var refresh = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        refresh.Tick += (_, _) =>
+        {
+            int unlocked = owner.Model.Unlocked; if (unlocked == unlockedBefore) return;
+            unlockedBefore = unlocked; progress.Text = $"已收集 {unlocked}/100 · 每 100 次按下解锁一套";
+            foreach (var (button, id) in outfitButtons)
+            {
+                bool owned = id < unlocked; button.IsEnabled = owned; button.Opacity = owned ? 1 : .45;
+                if (button.Content is StackPanel panel && panel.Children[1] is TextBlock name) name.Text = owned ? owner.Catalog.Outfits[id].Name : $"{(id + 1) * 100:N0} 次解锁";
+            }
+        };
+        window.Closed += (_, _) => refresh.Stop(); refresh.Start(); return window;
     }
 
     internal static Window Reminders(PetWindow owner)

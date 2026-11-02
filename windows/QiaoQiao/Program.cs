@@ -50,6 +50,9 @@ internal sealed class PetWindow : Window
     private System.Windows.Forms.NotifyIcon? tray;
     private DateTimeOffset lastSave, lastReminderPoll;
     private Window? wardrobeWindow, reminderWindow, balloon;
+    private Guid? balloonReminder;
+    private string? balloonTitle;
+    private DateTimeOffset balloonDue;
     private Point? dragStart;
     private Native.Rect dragRect;
     private bool resizing, moved, settingSize, wasPausedForLock;
@@ -218,10 +221,16 @@ internal sealed class PetWindow : Window
     private void PollReminder(DateTimeOffset now)
     {
         var due = Model.Due(now);
-        if (balloon != null) return;
+        if (balloon != null)
+        {
+            var item = balloonReminder == null ? null : due.FirstOrDefault(r => r.Id == balloonReminder);
+            if (balloonReminder == null ? Model.RestDue : item != null && item.Title == balloonTitle && item.Due == balloonDue) return;
+            balloon.Close();
+        }
         if (due.Count == 0 && !Model.RestDue) { Pet.ReminderVisible = false; return; }
         if (!IsVisible) Show();
         var first = due.FirstOrDefault();
+        balloonReminder = first?.Id; balloonTitle = first?.Title; balloonDue = first?.Due ?? default;
         balloon = Editors.Balloon(this, first, due.Count);
         balloon.Closed += (_, _) => { balloon = null; Pet.ReminderVisible = false; };
         Pet.ReminderVisible = true; balloon.Show();

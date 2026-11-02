@@ -56,6 +56,7 @@ private func sleepPreviewSession(seconds: TimeInterval) -> (CounterModel, Feedba
     let model = CounterModel(now: began, saved: saved), feedback = FeedbackModel()
     let view = PetView(model: model, feedback: feedback)
     view.demo = true; view.globalAvailable = true; view.now = began
+    view.reducedMotionOverride = false
     view.previewOutfit = OutfitCatalog.all[12]
     let window = NSWindow(contentRect: view.bounds, styleMask: .borderless, backing: .buffered, defer: false)
     window.contentView = view
@@ -66,6 +67,7 @@ private func sleepPreviewSession(seconds: TimeInterval) -> (CounterModel, Feedba
 /// Runs the actual idle clock, feedback state and NSView drawing together.
 /// Long samples catch a return to nodding after the initial sleep transition.
 func runSleepTransitionTests() -> Bool {
+    print("Sleep fixture: full motion; system Reduce Motion = \(NSWorkspace.shared.accessibilityDisplayShouldReduceMotion)")
     var checks = 0, failures: [String] = []
     func check(_ value: Bool, _ message: String) { checks += 1; if !value { failures.append(message) } }
     for seconds in [30.0, 60, 120] {

@@ -19,6 +19,9 @@ final class PetView: NSView {
     var secureInput = false
     var now = Date()
     var demo = false
+    // Preview/test fixtures select their animation mode explicitly. Live views
+    // keep nil and follow the user's accessibility preference.
+    var reducedMotionOverride: Bool?
     var previewCel: (state: CelState, elapsed: Double)?
     // Diagnostics observe the real NSView draw boundary, not a timer estimate.
     var onDraw: ((CelState, Int) -> Void)?
@@ -103,7 +106,7 @@ final class PetView: NSView {
         let mood = model.mood(at: now)
         let rawPose = feedback.pose(mood: mood, at: now)
         let pose: PetReaction? = timedReminderVisible && (rawPose == nil || [.sleeping, .drowsy, .paused].contains(rawPose!)) ? .scheduledReminder : rawPose
-        let reduce = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
+        let reduce = reducedMotionOverride ?? NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
         let keyAge = max(0, now.timeIntervalSince(feedback.lastPress))
         let keyPulse = max(0, 1 - keyAge / 0.24)
         // Direct manipulation keeps its own animation while a due reminder stays visible.
