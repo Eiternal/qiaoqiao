@@ -1,0 +1,63 @@
+name: Upload verified release packages
+on:
+  workflow_dispatch:
+    inputs:
+      source_run:
+        description: Successful Build and verify desktop apps run ID
+        required: true
+      tag:
+        description: Existing draft release tag
+        required: true
+permissions:
+  actions: read
+  contents: write
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      SOURCE_RUN: ${{ inputs.source_run }}
+      RELEASE_TAG: ${{ inputs.tag }}
+    steps:
+      - name: Require successful build and matching draft source
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, json, re, subprocess
+          run = os.environ['SOURCE_RUN']; tag = os.environ['RELEASE_TAG']
+          assert re.fullmatch(r'[0-9]+', run)
+          assert re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+', tag)
+          def gh(*args): return json.loads(subprocess.check_output(['gh', *args]))
+          build = gh('run', 'view', run, '--json', 'conclusion,headSha,name')
+          release = gh('release', 'view', tag, '--json', 'isDraft,targetCommitish')
+          assert build['name'] == 'Build and verify desktop apps' and build['conclusion'] == 'success'
+          assert release['isDraft'] and release['targetCommitish'] == build['headSha']
+          print('Verified draft source:', build['headSha'])
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.source_run }}
+          path: packages
+      - name: Verify checksums and upload both platform packages
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, os, subprocess, zipfile
+          packages = sorted(Path('packages').rglob('*.zip'))
+          expected = {'QiaoQiao-macOS-0.9.4.zip', 'QiaoQiao-Windows-x64-0.9.4.zip'}
+          assert {p.name for p in packages} == expected and len(packages) == 2
+          files = []
+          for p in packages:
+              sha = p.with_suffix('.zip.sha256')
+              assert hashlib.sha256(p.read_bytes()).hexdigest() == sha.read_text().split()[0]
+              with zipfile.ZipFile(p) as z:
+                  assert z.testzip() is None
+                  assert not any('state.json' in n or 'report.json' in n for n in z.namelist())
+              files.extend([str(p), str(sha)])
+              print('Verified:', p.name, p.stat().st_size)
+          subprocess.run(['gh', 'release', 'upload', os.environ['RELEASE_TAG'], *files, '--clobber'], check=True)
+          PY
