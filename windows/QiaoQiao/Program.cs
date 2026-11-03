@@ -118,8 +118,8 @@ internal sealed partial class PetWindow : Window
     {
         var now = DateTimeOffset.Now; Model.Tick(now); UpdateTimerDisplay();
         Pet.InvalidateVisual();
-        if ((now - lastReminderPoll).TotalSeconds >= 1) { lastReminderPoll = now; PollTimers(now); PollReminder(now); }
-        if (Model.Dirty && (now - lastSave).TotalSeconds >= 5) Save();
+        if ((now - lastReminderPoll).TotalSeconds >= 1 || now < lastReminderPoll) { lastReminderPoll = now; PollTimers(now); PollReminder(now); }
+        if (Model.Dirty && ((now - lastSave).TotalSeconds >= 5 || now < lastSave)) Save();
     }
     private void Save()
     {

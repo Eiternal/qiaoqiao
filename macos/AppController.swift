@@ -124,6 +124,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
     var lastSaved = Date.distantPast
     var dirty = false
     var tickNumber = 0
+    var lastHeartbeat = Date.distantPast
     var desktopVisible = true
     var permanentlyClickThrough = false
     var relativeSize: CGFloat = 1
@@ -322,7 +323,8 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
             feedback.react(.rest, at: now); rest.markReminded(at: now)
             pendingRestReminder = false; dirty = true; refresh()
         }
-        if tickNumber % 24 == 0 {
+        if now.timeIntervalSince(lastHeartbeat) >= 1 || now < lastHeartbeat {
+            lastHeartbeat = now
             processTimers(at: now)
             processScheduledReminders(at: now)
             let oldWork = rest.activeSeconds
@@ -335,7 +337,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
             if monitor.active && !CGPreflightListenEventAccess() { monitor.stop(); feedback.react(.blocked, at: now) }
             refresh()
             if wardrobeWindow?.window?.isVisible == true { wardrobeWindow?.refresh() }
-            if dirty && now.timeIntervalSince(lastSaved) >= 5 { save() }
+            if dirty && (now.timeIntervalSince(lastSaved) >= 5 || now < lastSaved) { save() }
             writeMonitorReport()
         }
         guard panel.isVisible else { return }
@@ -641,7 +643,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
             reminderWindow = ReminderWindowController(book: reminderBook) { [weak self] mutation in self?.remindersChanged(mutation) }
             reminderWindow?.onClose = { [weak self] in
                 guard let self = self else { return }
-                if self.testWindow?.isVisible != true && self.wardrobeWindow?.window?.isVisible != true { NSApp.setActivationPolicy(.accessory) }
+                if self.testWindow?.isVisible != true && self.wardrobeWindow?.window?.isVisible != true && self.timerWindow?.window?.isVisible != true { NSApp.setActivationPolicy(.accessory) }
                 self.feedback.react(.shown); self.refresh()
             }
         }

@@ -73,7 +73,18 @@ func runTimerPresentationTests() -> Bool {
     let before = book.display?.state; editor.pauseButton.performClick(nil)
     let paused = book.display?.state; editor.pauseButton.performClick(nil)
     let presenter = ScheduledReminderPresenter()
-    let result = [opened == 1 && !pet.isInteracting, pet.logicalSize.height == 274, model.todayCount == 0, editor.table.numberOfRows == 1, before == .running && paused == .paused && book.display?.state == .running, !presenter.panel.canBecomeKey && !presenter.panel.canBecomeMain]
+    let domain = "local.qiaoqiao.timer-test.\(UUID().uuidString)"
+    let isolated = UserDefaults(suiteName: domain)!
+    let overdue = TimerBookModel(); try! overdue.countdown(title: "测试", seconds: 1, at: now.addingTimeInterval(-5))
+    isolated.set(try! JSONEncoder().encode(overdue.saved()), forKey: "timers.v1")
+    let controller = AppController(settings: isolated)
+    controller.panel = CompanionPanel(contentRect: NSRect(origin: .zero, size: PetView.size), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
+    controller.pet = PetView(model: controller.model); controller.panel.contentView = controller.pet
+    controller.sessionInactive = true; controller.tickNumber = 1; controller.lastHeartbeat = now.addingTimeInterval(-1000)
+    controller.pulse()
+    let catchesOnFirstPulse = controller.timers.pending.count == 1 && controller.model.todayCount == 0
+    isolated.removePersistentDomain(forName: domain)
+    let result = [opened == 1 && !pet.isInteracting, pet.logicalSize.height == 274, model.todayCount == 0, editor.table.numberOfRows == 1, before == .running && paused == .paused && book.display?.state == .running, !presenter.panel.canBecomeKey && !presenter.panel.canBecomeMain, catchesOnFirstPulse]
     print("Timer presentation tests: \(result.filter { $0 }.count)/\(result.count) passed"); return result.allSatisfy { $0 }
 }
 

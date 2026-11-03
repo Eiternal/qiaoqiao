@@ -71,14 +71,17 @@ internal static partial class Editors
         Guid? Selected() => (list.SelectedItem as ListBoxItem)?.Tag as Guid?;
         var pause = Button("暂停", () => { if (Selected() is Guid id && owner.Timers.Pause(id, DateTimeOffset.Now)) Changed("按你的节奏，暂停或继续啦。"); });
         var next = Button("下一阶段", () => { if (Selected() is Guid id && owner.Timers.Advance(id, DateTimeOffset.Now)) Changed("下一段开始啦。"); });
-        buttons.Children.Add(Button("显示这个", () => { if (Selected() is Guid id) { owner.Timers.Saved.SelectedId = id; owner.Timers.Saved.ShowBadge = true; badge.IsChecked = true; Changed("这一项交给我盯着。"); } }));
+        var display = Button("显示这个", () => { if (Selected() is Guid id) { owner.Timers.Saved.SelectedId = id; owner.Timers.Saved.ShowBadge = true; badge.IsChecked = true; Changed("这一项交给我盯着。"); } });
+        buttons.Children.Add(display);
         buttons.Children.Add(pause); buttons.Children.Add(next);
-        buttons.Children.Add(Button("结束计时", () => { if (Selected() is Guid id && owner.Timers.Stop(id)) Changed("这一项先收起来啦。"); }));
-        buttons.Children.Add(Button("删除", () => { if (Selected() is Guid id) { owner.Timers.Remove(id); Changed("已经划掉啦。"); } }));
+        var stop = Button("结束计时", () => { if (Selected() is Guid id && owner.Timers.Stop(id)) Changed("这一项先收起来啦。"); });
+        var remove = Button("删除", () => { if (Selected() is Guid id) { owner.Timers.Remove(id); Changed("已经划掉啦。"); } });
+        buttons.Children.Add(stop); buttons.Children.Add(remove);
         void UpdateButtons()
         {
             var t = owner.Timers.Items.FirstOrDefault(t => t.Id == Selected()); pause.IsEnabled = t?.CanPause == true; pause.Content = t?.State == TimerState.Paused ? "继续" : "暂停";
             next.IsEnabled = t?.State == TimerState.Awaiting; next.Content = t?.State == TimerState.Awaiting ? t.AdvanceTitle : "下一阶段";
+            display.IsEnabled = t?.Active == true; stop.IsEnabled = t?.Active == true; remove.IsEnabled = t != null;
         }
         void Refresh()
         {
