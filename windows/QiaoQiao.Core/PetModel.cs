@@ -26,6 +26,7 @@ public sealed class SaveState
     public double? Left { get; set; }
     public double? Top { get; set; }
     public List<Reminder> Reminders { get; set; } = [];
+    public SavedTimerBook Timers { get; set; } = new();
 }
 
 // Key identity includes the device and extended scan code. Only this transient

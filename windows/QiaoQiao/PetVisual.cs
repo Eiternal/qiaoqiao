@@ -51,6 +51,8 @@ internal sealed class PetVisual : FrameworkElement
     public double PreviewElapsed { get; set; }
     public int? PreviewOutfit { get; set; }
     public bool Preview { get; set; }
+    public DeskTimer? TimerDisplay { get; set; }
+    public double LogicalHeight => TimerDisplay == null ? 236 : 274;
     public string LastDrawnState { get; private set; } = "";
     public int LastDrawnCel { get; private set; }
     private readonly Dictionary<string, BitmapImage> images = [];
@@ -129,6 +131,13 @@ internal sealed class PetVisual : FrameworkElement
         Text(d, count, 132, 202, count.Length > 19 ? 13 : count.Length > 16 ? 15 : 17, Ink, "Consolas");
         if (Hovered)
             for (int i = 0; i < 3; i++) d.DrawLine(new Pen(ColorBrush(0xA894A1, 150), 1.4), new Point(229 + i * 4, 224), new Point(237, 216 + i * 4));
+        if (TimerDisplay is DeskTimer timer)
+        {
+            var accent = ColorBrush(timer.State == TimerState.Awaiting ? 0xB97867u : timer.Kind == TimerKind.Pomodoro ? 0xB78D9Cu : 0x8A9D91u);
+            d.DrawRoundedRectangle(ColorBrush(0xFFFCF8, 245), new Pen(accent, .7), new Rect(42, 237, 180, 28), 13, 13);
+            Text(d, timer.Symbol + "  " + DeskTimer.TimeText(timer.Seconds(now)), 132, 242, 14, accent, "Consolas");
+            d.DrawRoundedRectangle(accent, null, new Rect(57, 261, 150 * timer.Progress(now), 2), 1, 1);
+        }
         if (!ReminderVisible && now < Model.SpeechUntil && !Preview)
         {
             var text = new FormattedText(Model.Speech, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, new Typeface("Microsoft YaHei UI"), 12, Ink, VisualTreeHelper.GetDpi(this).PixelsPerDip) { MaxTextWidth = 226, TextAlignment = TextAlignment.Center };
@@ -144,8 +153,8 @@ internal sealed class PetVisual : FrameworkElement
     }
     public void Export(string path)
     {
-        Measure(new Size(264, 236)); Arrange(new Rect(0, 0, 264, 236)); InvalidateVisual(); UpdateLayout();
-        var b = new RenderTargetBitmap(528, 472, 192, 192, PixelFormats.Pbgra32); b.Render(this);
+        Height = LogicalHeight; Measure(new Size(264, LogicalHeight)); Arrange(new Rect(0, 0, 264, LogicalHeight)); InvalidateVisual(); UpdateLayout();
+        var b = new RenderTargetBitmap(528, (int)(LogicalHeight * 2), 192, 192, PixelFormats.Pbgra32); b.Render(this);
         var png = new PngBitmapEncoder(); png.Frames.Add(BitmapFrame.Create(b)); using var stream = File.Create(path); png.Save(stream);
     }
 }

@@ -108,6 +108,11 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
     var countingRule: InputCountingRule { InputCountingRule(rawValue: defaults.string(forKey: "inputCountingRule") ?? "") ?? .keyAndMouseButtons }
     let rest: RestReminderModel
     let reminderBook: ReminderBookModel
+    let timers: TimerBookModel
+    var timerWindow: TimerWindowController?
+    var timerPresenter: ScheduledReminderPresenter?
+    var activeTimer: UUID?
+    var hadPomodoro = false
     let feedback = FeedbackModel()
     var panel: CompanionPanel!
     var pet: PetView!
@@ -155,6 +160,9 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         rest = RestReminderModel(saved: savedRest)
         let savedReminders = settings.data(forKey: "scheduledReminders").flatMap { try? JSONDecoder().decode(SavedReminderBook.self, from: $0) }
         reminderBook = ReminderBookModel(saved: savedReminders)
+        let savedTimers = settings.data(forKey: "timers.v1").flatMap { try? JSONDecoder().decode(SavedTimerBook.self, from: $0) }
+        timers = TimerBookModel(saved: savedTimers)
+        hadPomodoro = timers.items.contains { $0.kind == .pomodoro && $0.active }
         super.init()
         relativeSize = ScreenSizing.preference(CGFloat(defaults.double(forKey: "relativeSize")))
     }
@@ -185,6 +193,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary, .ignoresCycle]
         pet = PetView(model: model, feedback: feedback, wardrobe: wardrobe)
+        pet.timerDisplay = timers.display
         // Decode the small sprite set and prepare the selected costume before
         // input monitoring starts. No first-key disk reads or path rasterization.
         CelAssets.preload()
@@ -193,6 +202,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         placePanel()
         panel.delegate = self
         pet.onMenu = { [weak self] in self?.showMenu() }
+        pet.onTimers = { [weak self] in self?.showTimerCenter() }
         pet.onConnectInput = { [weak self] in self?.explainInputConnection() }
         pet.onMove = { [weak self] in self?.savePosition() }
         pet.onResize = { [weak self] scale, finished in self?.resizeFromGrip(scale: scale, finished: finished) }
@@ -221,7 +231,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sessionResigned), name: NSWorkspace.sessionDidResignActiveNotification, object: nil)
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(sessionBecameActive), name: NSWorkspace.sessionDidBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(screensChanged), name: NSApplication.didChangeScreenParametersNotification, object: nil)
-        processScheduledReminders(at: Date())
+        processTimers(at: Date()); processScheduledReminders(at: Date())
         writeMonitorReport()
         // A stopped counter must explain the required connection on first use.
         // The system consent is requested only after the user chooses 去开启.
@@ -306,13 +316,14 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
            (feedback.visibleSpeech(at: now)?.reaction.priority ?? 0) <= pending.priority {
             feedback.react(pending, at: now); pendingOutfitFeedback = nil
         }
-        if pendingRestReminder, activeScheduledReminder == nil, !monitoringSuspended, feedback.interaction == .none,
+        if pendingRestReminder, activeScheduledReminder == nil, activeTimer == nil, !hadPomodoro, !monitoringSuspended, feedback.interaction == .none,
            (feedback.visibleSpeech(at: now)?.reaction.priority ?? 0) <= PetReaction.rest.priority,
            rest.reminderDue(at: now) {
             feedback.react(.rest, at: now); rest.markReminded(at: now)
             pendingRestReminder = false; dirty = true; refresh()
         }
         if tickNumber % 24 == 0 {
+            processTimers(at: now)
             processScheduledReminders(at: now)
             let oldWork = rest.activeSeconds
             pendingRestReminder = rest.reminderDue(at: now)
@@ -392,14 +403,15 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         guard area.width > 0, area.height > 0 else { return }
         isApplyingLayout = true
         defer { isApplyingLayout = false }
-        let frame = ScreenSizing.frame(from: panel.frame, in: area, preference: relativeSize, anchor: anchor)
+        let frame = ScreenSizing.frame(from: panel.frame, in: area, preference: relativeSize, anchor: anchor, contentSize: pet.logicalSize)
         if panel.frame != frame { panel.setFrame(frame, display: true) }
         // Keep one logical drawing space for artwork, text, hit targets and menu anchors.
         pet.frame = NSRect(origin: .zero, size: frame.size)
-        pet.bounds = NSRect(origin: .zero, size: PetView.size)
+        pet.bounds = NSRect(origin: .zero, size: pet.logicalSize)
         panel.invalidateCursorRects(for: pet)
         pet.needsDisplay = true
         reminderPresenter?.reposition(near: panel.frame)
+        timerPresenter?.reposition(near: panel.frame)
     }
 
     func scheduleScreenAdaptation() {
@@ -460,6 +472,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         if let data = try? JSONEncoder().encode(wardrobe.saved()) { defaults.set(data, forKey: "wardrobe") }
         if let data = try? JSONEncoder().encode(rest.saved(at: Date())) { defaults.set(data, forKey: "restSession") }
         if let data = try? JSONEncoder().encode(reminderBook.saved()) { defaults.set(data, forKey: "scheduledReminders") }
+        if let data = try? JSONEncoder().encode(timers.saved()) { defaults.set(data, forKey: "timers.v1") }
         lastSaved = Date(); dirty = false
     }
 
@@ -478,6 +491,8 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         _ = add("近 60 秒 \(model.rate()) 次 · 每秒刷新", nil)
         _ = add(model.isPaused ? "计数已暂停" : (IsSecureEventInputEnabled() ? "系统安全输入中，暂不计数" : (monitor.active ? "全局键鼠已连接" : "尚未连接，仅本应用内计数")), nil)
         menu.addItem(.separator())
+        _ = add("小计时器 · 下班 / 倒计时 / 番茄钟…", #selector(showTimerCenter))
+        if let t = timers.display { _ = add(t.title + " · " + DeskTimer.timeText(t.seconds(at: Date())) + (t.state == .paused ? " · 已暂停" : ""), #selector(showTimerCenter)) }
         _ = add(reminderBook.pendingCount > 0 ? "定时提醒（\(reminderBook.pendingCount) 条待确认）…" : "定时提醒…", #selector(showReminderBook))
         _ = add("新增提醒…", #selector(newScheduledReminder))
         menu.addItem(.separator())
@@ -616,7 +631,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
     }
     func windowWillClose(_ notification: Notification) {
         if let window = notification.object as? NSWindow, window === testWindow {
-            if wardrobeWindow?.window?.isVisible != true && reminderWindow?.window?.isVisible != true { NSApp.setActivationPolicy(.accessory) }
+            if wardrobeWindow?.window?.isVisible != true && reminderWindow?.window?.isVisible != true && timerWindow?.window?.isVisible != true { NSApp.setActivationPolicy(.accessory) }
             feedback.react(.shown); refresh()
         }
     }
@@ -656,9 +671,10 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         feedback.react(reaction); processScheduledReminders(at: Date()); refresh()
     }
     func clearScheduledPresentation() {
-        reminderPresenter?.hide(); activeScheduledReminder = nil; pet.timedReminderVisible = false
+        reminderPresenter?.hide(); activeScheduledReminder = nil; pet.timedReminderVisible = activeTimer != nil
     }
     func processScheduledReminders(at now: Date) {
+        guard activeTimer == nil else { return }
         let newlyDue = reminderBook.collectDue(at: now)
         if !newlyDue.isEmpty { save(); reminderWindow?.refresh() }
         let hasPending = reminderBook.pendingCount > 0
@@ -699,7 +715,7 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
             wardrobeWindow = WardrobeWindowController(wardrobe: wardrobe) { [weak self] id in self?.equipOutfit(id) }
             wardrobeWindow?.onClose = { [weak self] in
                 guard let self = self else { return }
-                if self.testWindow?.isVisible != true && self.reminderWindow?.window?.isVisible != true { NSApp.setActivationPolicy(.accessory) }
+                if self.testWindow?.isVisible != true && self.reminderWindow?.window?.isVisible != true && self.timerWindow?.window?.isVisible != true { NSApp.setActivationPolicy(.accessory) }
                 self.feedback.react(.shown); self.refresh()
             }
         }
@@ -778,16 +794,16 @@ final class AppController: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWi
         modifierFilter.reset(flags: CGEventSource.flagsState(.combinedSessionState).rawValue)
         if monitoringSuspended { monitor.stop() } else { _ = monitor.start() }
     }
-    @objc func didWake() { machineSleeping = false; synchronizeMonitoringState(); scheduleScreenAdaptation(); processScheduledReminders(at: Date()); refresh() }
-    @objc func willSleep() { machineSleeping = true; synchronizeMonitoringState(); clearScheduledPresentation(); save() }
-    @objc func sessionResigned() { sessionInactive = true; synchronizeMonitoringState(); clearScheduledPresentation(); save() }
-    @objc func sessionBecameActive() { sessionInactive = false; synchronizeMonitoringState(); processScheduledReminders(at: Date()); refresh() }
+    @objc func didWake() { machineSleeping = false; synchronizeMonitoringState(); scheduleScreenAdaptation(); processTimers(at: Date()); processScheduledReminders(at: Date()); refresh() }
+    @objc func willSleep() { machineSleeping = true; synchronizeMonitoringState(); clearScheduledPresentation(); clearTimerPresentation(); save() }
+    @objc func sessionResigned() { sessionInactive = true; synchronizeMonitoringState(); clearScheduledPresentation(); clearTimerPresentation(); save() }
+    @objc func sessionBecameActive() { sessionInactive = false; synchronizeMonitoringState(); processTimers(at: Date()); processScheduledReminders(at: Date()); refresh() }
     @objc func screensChanged() { scheduleScreenAdaptation() }
     func windowDidChangeScreen(_ notification: Notification) {
         if let window = notification.object as? NSWindow, window === panel { scheduleScreenAdaptation() }
     }
     func windowDidMove(_ notification: Notification) {
-        if let window = notification.object as? NSWindow, window === panel { reminderPresenter?.reposition(near: panel.frame) }
+        if let window = notification.object as? NSWindow, window === panel { reminderPresenter?.reposition(near: panel.frame); timerPresenter?.reposition(near: panel.frame) }
     }
     func windowDidChangeBackingProperties(_ notification: Notification) {
         if let window = notification.object as? NSWindow, window === panel { scheduleScreenAdaptation() }

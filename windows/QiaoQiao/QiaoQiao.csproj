@@ -8,7 +8,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>QiaoQiao</AssemblyName>
-    <Version>0.9.4</Version>
+    <Version>0.10.0</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
     <DebugType>none</DebugType>

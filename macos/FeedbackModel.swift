@@ -112,6 +112,9 @@ final class FeedbackModel {
         guard let speech = speech, speech.ends > now else { return nil }
         return speech
     }
+    func timerFeedback(_ text: String, at now: Date = Date()) {
+        speech = PetSpeech(reaction: .settings, text: text, began: now, ends: now.addingTimeInterval(4))
+    }
 
     func pose(mood: PetMood, at now: Date) -> PetReaction? {
         switch interaction {

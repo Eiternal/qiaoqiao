@@ -10,4 +10,5 @@ codesign --force --deep --sign - "dist/敲敲.app"
 codesign --verify --deep --strict "dist/敲敲.app"
 "dist/敲敲.app/Contents/MacOS/QiaoQiao" --self-test
 "dist/敲敲.app/Contents/MacOS/QiaoQiao" --presentation-test
+"dist/敲敲.app/Contents/MacOS/QiaoQiao" --render-timers "$PWD/artifacts/macos-timers"
 python3 scripts/package.py macos

@@ -215,7 +215,7 @@ final class ScheduledReminderBalloonView: NSView {
         let textHeight = (title as NSString).boundingRect(with: NSSize(width: width - 40, height: 10000), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: NSFont.systemFont(ofSize: 14, weight: .medium)]).height
         return NSSize(width: width, height: min(maxHeight, max(156, ceil(textHeight) + 126)))
     }
-    init(item: ScheduledReminder, count: Int, size: NSSize, tailAtTop: Bool) {
+    init(item: ScheduledReminder, count: Int, size: NSSize, tailAtTop: Bool, buttonTitles: [String] = ["完成", "10 分钟后", "稍后查看"]) {
         self.item = item; self.tailAtTop = tailAtTop
         messageLabel = NSTextField(wrappingLabelWithString: item.title)
         super.init(frame: NSRect(origin: .zero, size: size))
@@ -237,7 +237,7 @@ final class ScheduledReminderBalloonView: NSView {
         messageLabel.setAccessibilityLabel("提醒事项：" + item.title)
         document.addSubview(messageLabel); scroll.documentView = document; addSubview(scroll)
         let width = (size.width - 56) / 3
-        for (index, title, action) in [(0, "完成", #selector(completeReminder)), (1, "10 分钟后", #selector(snooze)), (2, "稍后查看", #selector(later))] {
+        for (index, title, action) in [(0, buttonTitles[0], #selector(completeReminder)), (1, buttonTitles[1], #selector(snooze)), (2, buttonTitles[2], #selector(later))] {
             let button = NSButton(title: title, target: self, action: action)
             button.bezelStyle = .rounded; button.font = .systemFont(ofSize: size.width < 270 ? 10 : 12)
             button.frame = NSRect(x: 20 + CGFloat(index) * (width + 8), y: buttonY, width: width, height: 28)
@@ -270,6 +270,7 @@ final class ScheduledReminderPresenter {
     var onLater: ((UUID) -> Void)?
     private var item: ScheduledReminder?
     private var count = 0
+    private var buttonTitles = ["完成", "10 分钟后", "稍后查看"]
     init() {
         panel = CompanionPanel(contentRect: .zero, styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
         panel.title = "敲敲 · 定时提醒"; panel.isOpaque = false; panel.backgroundColor = .clear
@@ -278,8 +279,9 @@ final class ScheduledReminderPresenter {
         panel.isReleasedWhenClosed = false; panel.acceptsMouseMovedEvents = true
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary, .ignoresCycle]
     }
-    func show(_ item: ScheduledReminder, count: Int, near pet: NSRect) {
+    func show(_ item: ScheduledReminder, count: Int, near pet: NSRect, buttonTitles: [String] = ["完成", "10 分钟后", "稍后查看"]) {
         self.item = item; itemID = item.id; self.count = count
+        self.buttonTitles = buttonTitles
         reposition(near: pet); panel.orderFrontRegardless()
     }
     func reposition(near pet: NSRect) {
@@ -294,7 +296,7 @@ final class ScheduledReminderPresenter {
         var y = useAbove ? above : pet.minY - size.height - 8
         y = min(max(y, area.minY + 8), max(area.minY + 8, area.maxY - size.height - 8))
         let x = min(max(pet.midX - size.width / 2, area.minX + 8), max(area.minX + 8, area.maxX - size.width - 8))
-        let view = ScheduledReminderBalloonView(item: item, count: count, size: size, tailAtTop: !useAbove)
+        let view = ScheduledReminderBalloonView(item: item, count: count, size: size, tailAtTop: !useAbove, buttonTitles: buttonTitles)
         view.onComplete = { [weak self] in self?.onComplete?(item.id) }
         view.onSnooze = { [weak self] in self?.onSnooze?(item.id) }
         view.onLater = { [weak self] in self?.onLater?(item.id) }

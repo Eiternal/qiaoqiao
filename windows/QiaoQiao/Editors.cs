@@ -8,7 +8,7 @@ using QiaoQiao.Core;
 
 namespace QiaoQiao;
 
-internal static class Editors
+internal static partial class Editors
 {
     private static readonly Brush Cream = PetVisual.ColorBrush(0xFFFAF2);
     private static Window Window(string title, double w, double h)
@@ -130,6 +130,11 @@ internal static class Editors
         buttons.Children.Add(Button(reminder == null ? "休息好了" : "完成", () => Act("done")));
         buttons.Children.Add(Button("十分钟后", () => Act("snooze")));
         if (reminder != null) buttons.Children.Add(Button("知道啦", () => Act("ack")));
+        ConfigureBalloon(owner, window);
+        return window;
+    }
+    private static void ConfigureBalloon(PetWindow owner, Window window)
+    {
         window.SourceInitialized += (_, _) =>
         {
             var handle = new WindowInteropHelper(window).Handle;
@@ -146,6 +151,6 @@ internal static class Editors
             int y = r.Top - h >= area.Top ? r.Top - h : Math.Min(area.Bottom - h, r.Bottom);
             Native.SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, x, y, 0, 0, 0x15);
         };
-        return window;
     }
+
 }

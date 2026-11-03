@@ -48,7 +48,8 @@ jobs:
           from pathlib import Path
           import hashlib, os, subprocess, zipfile
           packages = sorted(Path('packages').rglob('*.zip'))
-          expected = {'QiaoQiao-macOS-0.9.4.zip', 'QiaoQiao-Windows-x64-0.9.4.zip'}
+          version = os.environ['RELEASE_TAG'].removeprefix('v')
+          expected = {f'QiaoQiao-macOS-{version}.zip', f'QiaoQiao-Windows-x64-{version}.zip'}
           assert {p.name for p in packages} == expected and len(packages) == 2
           files = []
           for p in packages:

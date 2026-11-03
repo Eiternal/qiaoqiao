@@ -133,7 +133,8 @@ if args.contains("--self-test") {
     let remindersPassed = runReminderTests()
     let animationPassed = runCelAnimationTests()
     let pressesPassed = runPressInputTests()
-    exit(counterPassed && sizingPassed && feedbackPassed && wardrobePassed && activityPassed && remindersPassed && animationPassed && pressesPassed ? 0 : 1)
+    let timersPassed = runTimerTests()
+    exit(counterPassed && sizingPassed && feedbackPassed && wardrobePassed && activityPassed && remindersPassed && animationPassed && pressesPassed && timersPassed ? 0 : 1)
 }
 
 let application = NSApplication.shared
@@ -150,7 +151,12 @@ if args.contains("--presentation-test") {
     let base = runPresentationTests(), reminders = runReminderPresentationTests(), art = runCelAssetTests(), rig = runOutfitRigTests(), connection = runInputConnectionPresentationTests()
     let sleep = runSleepTransitionTests()
     let presses = runPressIntegrationTests()
-    exit(base && reminders && art && rig && connection && sleep && presses ? 0 : 1)
+    let timers = runTimerPresentationTests()
+    exit(base && reminders && art && rig && connection && sleep && presses && timers ? 0 : 1)
+}
+if let index = args.firstIndex(of: "--render-timers"), args.count > index + 1 {
+    do { try exportTimerPreviews(to: args[index + 1]); exit(0) }
+    catch { print("Timer preview failed: \(error)"); exit(1) }
 }
 
 if let index = args.firstIndex(of: "--render-sleep"), args.count > index + 1 {

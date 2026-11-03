@@ -23,6 +23,11 @@ jobs:
           path: |
             dist/*.zip
             dist/*.sha256
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QiaoQiao-macOS-previews
+          path: artifacts/macos-timers/
   windows:
     runs-on: windows-2022
     timeout-minutes: 20
@@ -44,4 +49,8 @@ jobs:
           path: |
             dist/*.zip
             dist/*.sha256
-            artifacts/windows-smoke/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QiaoQiao-Windows-previews
+          path: artifacts/windows-smoke/

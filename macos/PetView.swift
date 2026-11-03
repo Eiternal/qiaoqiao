@@ -27,6 +27,10 @@ final class PetView: NSView {
     var onDraw: ((CelState, Int) -> Void)?
     private let celAnimator = CelAnimator()
     var onMenu: (() -> Void)?
+    var onTimers: (() -> Void)?
+    var timerDisplay: DeskTimer?
+    var logicalSize: NSSize { NSSize(width: 264, height: timerDisplay == nil ? 236 : 274) }
+    private let timerRect = NSRect(x: 42, y: 237, width: 180, height: 28)
     var onConnectInput: (() -> Void)?
     var onMove: (() -> Void)?
     var onResize: ((CGFloat, Bool) -> Void)?
@@ -132,6 +136,12 @@ final class PetView: NSView {
             line([NSPoint(x: 225, y: 221), NSPoint(x: 232, y: 214)], color: NSColor(hex: 0xCDBACD), width: 1.2)
             line([NSPoint(x: 231, y: 224), NSPoint(x: 235, y: 220)], color: NSColor(hex: 0xCDBACD), width: 1.2)
         }
+        if let timer = timerDisplay {
+            let accent = NSColor(hex: timer.state == .awaiting ? 0xB97867 : (timer.kind == .pomodoro ? 0xB78D9C : 0x8A9D91))
+            round(timerRect, radius: 13, fill: NSColor(hex: 0xFFFCF8, alpha: 0.96), stroke: accent.withAlphaComponent(0.5))
+            text(timer.symbol + "  " + DeskTimer.timeText(timer.seconds(at: now)), in: NSRect(x: 48, y: 242, width: 168, height: 22), size: 14, color: accent, mono: true)
+            round(NSRect(x: 57, y: 261, width: 150 * timer.progress(at: now), height: 2), radius: 1, fill: accent.withAlphaComponent(0.7))
+        }
         if showsSpeech && !timedReminderVisible, let speech = feedback.visibleSpeech(at: now) {
             NSGraphicsContext.saveGraphicsState()
             NSGraphicsContext.current?.cgContext.setAlpha(CGFloat(speech.alpha(at: now)))
@@ -146,17 +156,19 @@ final class PetView: NSView {
     override func resetCursorRects() {
         super.resetCursorRects(); addCursorRect(resizeRect, cursor: .crosshair)
         if needsInputHelp { addCursorRect(counterRect, cursor: .pointingHand) }
+        if timerDisplay != nil { addCursorRect(timerRect, cursor: .pointingHand) }
     }
     func updatePointer(_ screenPoint: NSPoint) {
         guard let window = window else { return }
         let point = convert(window.convertPoint(fromScreen: screenPoint), from: nil)
-        let hovered = avatarRect.contains(point) || counterRect.contains(point)
+        let hovered = avatarRect.contains(point) || counterRect.contains(point) || (timerDisplay != nil && timerRect.contains(point))
         if feedback.hovered != hovered { feedback.hovered = hovered; needsDisplay = true }
         feedback.lookX = Double(min(1, max(-1, (point.x - 132) / 80)))
         feedback.lookY = Double(min(1, max(-1, (point.y - 127) / 70)))
     }
     override func mouseDown(with event: NSEvent) {
         let point = convert(event.locationInWindow, from: nil)
+        if timerDisplay != nil && timerRect.contains(point) { feedback.react(.petting, at: Date(), say: false); needsDisplay = true; onTimers?(); return }
         if resizeRect.contains(point), let frame = window?.frame {
             resizeStartFrame = frame; resizeStartMouse = screenLocation(for: event)
             feedback.beginResize(at: Date()); needsDisplay = true
@@ -174,7 +186,7 @@ final class PetView: NSView {
     }
     override func mouseDragged(with event: NSEvent) {
         if let frame = resizeStartFrame, let mouse = resizeStartMouse {
-            let current = screenLocation(for: event), base = Self.size
+            let current = screenLocation(for: event), base = logicalSize
             let delta = ((current.x - mouse.x) * base.width - (current.y - mouse.y) * base.height) / (base.width * base.width + base.height * base.height)
             onResize?(frame.width / base.width + delta, false); needsDisplay = true; return
         }

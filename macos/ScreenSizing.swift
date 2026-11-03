@@ -21,16 +21,16 @@ enum ScreenSizing {
         return min(1.25, max(0.80, proportional))
     }
 
-    static func scale(for area: CGSize, preference value: CGFloat) -> CGFloat {
+    static func scale(for area: CGSize, preference value: CGFloat, contentSize: CGSize = baseSize) -> CGFloat {
         guard area.width > 0, area.height > 0, area.width.isFinite, area.height.isFinite else { return 1 }
         let margin = min(16, min(area.width, area.height) * 0.04)
-        let fit = min((area.width - 2 * margin) / baseSize.width, (area.height - 2 * margin) / baseSize.height)
+        let fit = min((area.width - 2 * margin) / contentSize.width, (area.height - 2 * margin) / contentSize.height)
         return min(recommendedScale(for: area) * preference(value), fit)
     }
 
-    static func frame(from old: CGRect, in area: CGRect, preference value: CGFloat, anchor: Anchor = .bottomRight) -> CGRect {
-        let s = scale(for: area.size, preference: value)
-        let size = CGSize(width: baseSize.width * s, height: baseSize.height * s)
+    static func frame(from old: CGRect, in area: CGRect, preference value: CGFloat, anchor: Anchor = .bottomRight, contentSize: CGSize = baseSize) -> CGRect {
+        let s = scale(for: area.size, preference: value, contentSize: contentSize)
+        let size = CGSize(width: contentSize.width * s, height: contentSize.height * s)
         var origin: CGPoint
         switch anchor {
         case .bottomRight: origin = CGPoint(x: old.maxX - size.width, y: old.minY)

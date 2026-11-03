@@ -124,6 +124,7 @@ if (repo != null)
     Check(sleeping.GetProperty("exposures").GetArrayLength() == 1 && sleeping.GetProperty("exposures")[0][0].GetInt32() == 1, "sleep holds closed eyes");
     Check(!states.GetProperty("drowsy").GetProperty("loops").GetBoolean(), "drowsy animation runs once");
 }
-Console.WriteLine($"QiaoQiao core/assets: {checks - failures.Count}/{checks} passed");
+TimerChecks.Run(Check);
+Console.WriteLine($"QiaoQiao core/assets/timers: {checks - failures.Count}/{checks} passed");
 foreach (var failure in failures) Console.Error.WriteLine("FAIL: " + failure);
 return failures.Count == 0 ? 0 : 1;

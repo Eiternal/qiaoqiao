@@ -38,7 +38,7 @@ internal static class Program
     }
 }
 
-internal sealed class PetWindow : Window
+internal sealed partial class PetWindow : Window
 {
     internal readonly PetModel Model;
     internal readonly Catalog Catalog;
@@ -68,7 +68,10 @@ internal sealed class PetWindow : Window
         this.testRoot = testRoot; this.smoke = smoke; this.renderPath = renderPath;
         savePath = Path.Combine(testRoot ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "QiaoQiao"), "state.json");
         Model = new PetModel(StateStore.Load(savePath), DateTimeOffset.Now);
+        Timers = new TimerBook(Model.Saved.Timers); Model.Saved.Timers = Timers.Saved;
+        hadPomodoro = Timers.Items.Any(t => t.Kind == TimerKind.Pomodoro && t.Active);
         Catalog = Catalog.Load(); Pet = new PetVisual(Model, Catalog);
+        Pet.TimerDisplay = Timers.Display; Pet.Height = Pet.LogicalHeight;
         Title = "敲敲"; Width = 264; Height = 236;
         WindowStyle = WindowStyle.None; AllowsTransparency = true; Background = System.Windows.Media.Brushes.Transparent;
         ResizeMode = ResizeMode.NoResize; ShowInTaskbar = false; ShowActivated = false; Topmost = true;
@@ -113,9 +116,9 @@ internal sealed class PetWindow : Window
     }
     private void Pulse()
     {
-        var now = DateTimeOffset.Now; Model.Tick(now);
+        var now = DateTimeOffset.Now; Model.Tick(now); UpdateTimerDisplay();
         Pet.InvalidateVisual();
-        if ((now - lastReminderPoll).TotalSeconds >= 1) { lastReminderPoll = now; PollReminder(now); }
+        if ((now - lastReminderPoll).TotalSeconds >= 1) { lastReminderPoll = now; PollTimers(now); PollReminder(now); }
         if (Model.Dirty && (now - lastSave).TotalSeconds >= 5) Save();
     }
     private void Save()
@@ -131,6 +134,7 @@ internal sealed class PetWindow : Window
     {
         if (source == null) return;
         Point p = e.GetPosition(Pet);
+        if (Pet.TimerDisplay != null && new Rect(42, 237, 180, 28).Contains(p)) { OpenTimers(); e.Handled = true; return; }
         if (p.Y >= 195 && p.X < 220 && (!Pet.Connected || Model.Paused))
         {
             if (Model.Paused) Model.SetPaused(false, DateTimeOffset.Now);
@@ -174,8 +178,8 @@ internal sealed class PetWindow : Window
             double aw = area.Width / factor, ah = area.Height / factor;
             double recommended = Math.Clamp(Math.Min(aw / 1440, ah / 900) * .9, .8, 1.25);
             double margin = Math.Min(16, Math.Min(aw, ah) * .04);
-            double scale = Math.Min(recommended * Model.Saved.Size, Math.Min((aw - margin * 2) / 264, (ah - margin * 2) / 236));
-            Width = 264 * scale; Height = 236 * scale;
+            double scale = Math.Min(recommended * Model.Saved.Size, Math.Min((aw - margin * 2) / 264, (ah - margin * 2) / Pet.LogicalHeight));
+            Width = 264 * scale; Height = Pet.LogicalHeight * scale;
             int w = (int)Math.Round(Width * factor), h = (int)Math.Round(Height * factor);
             int x = restore ? (int)(Model.Saved.Left ?? area.Right - w - 25) : r.Left;
             int y = restore ? (int)(Model.Saved.Top ?? area.Bottom - h - 25) : r.Top;
@@ -202,6 +206,7 @@ internal sealed class PetWindow : Window
         Add(IsVisible ? "隐藏敲敲（托盘可找回）" : "显示敲敲", () => { if (IsVisible) Hide(); else { Show(); ApplySize(); } });
         Add(Model.Paused ? "继续计数" : "暂停计数", () => Model.SetPaused(!Model.Paused, DateTimeOffset.Now));
         Add("小衣柜…", OpenWardrobe); Add("定时提醒…", OpenReminders);
+        Add("小计时器 · 下班 / 倒计时 / 番茄钟…", OpenTimers);
         var size = Add("大小", () => { });
         foreach (double v in new[] { .5, .75, 1, 1.25, 1.5, 1.8 })
         { var i = new System.Windows.Controls.MenuItem { Header = $"{v:P0}" + (v == 1 ? " · 推荐" : ""), IsCheckable = true, IsChecked = Math.Abs(Model.Saved.Size - v) < .01 }; i.Click += (_, _) => { Model.Saved.Size = v; Model.Dirty = true; ApplySize(); Model.React("resizing", DateTimeOffset.Now); Model.Say("这个大小刚刚好。", DateTimeOffset.Now); }; size.Items.Add(i); }
@@ -220,25 +225,27 @@ internal sealed class PetWindow : Window
     private void OpenReminders() { if (reminderWindow == null) { reminderWindow = Editors.Reminders(this); reminderWindow.Closed += (_, _) => reminderWindow = null; } reminderWindow.Show(); reminderWindow.Activate(); Model.Say("告诉我，到点叫你。", DateTimeOffset.Now); }
     private void PollReminder(DateTimeOffset now)
     {
+        if (timerBalloon != null) return;
+        if (hadPomodoro && balloon != null && balloonReminder == null) balloon.Close();
         var due = Model.Due(now);
         if (balloon != null)
         {
             var item = balloonReminder == null ? null : due.FirstOrDefault(r => r.Id == balloonReminder);
-            if (balloonReminder == null ? Model.RestDue : item != null && item.Title == balloonTitle && item.Due == balloonDue) return;
+            if (balloonReminder == null ? Model.RestDue && !hadPomodoro : item != null && item.Title == balloonTitle && item.Due == balloonDue) return;
             balloon.Close();
         }
-        if (due.Count == 0 && !Model.RestDue) { Pet.ReminderVisible = false; return; }
+        if (due.Count == 0 && (!Model.RestDue || hadPomodoro)) { Pet.ReminderVisible = false; return; }
         if (!IsVisible) Show();
         var first = due.FirstOrDefault();
         balloonReminder = first?.Id; balloonTitle = first?.Title; balloonDue = first?.Due ?? default;
         balloon = Editors.Balloon(this, first, due.Count);
-        balloon.Closed += (_, _) => { balloon = null; Pet.ReminderVisible = false; };
+        balloon.Closed += (_, _) => { balloon = null; Pet.ReminderVisible = timerBalloon != null; };
         Pet.ReminderVisible = true; balloon.Show();
     }
     private void Cleanup()
     {
         if (ReadyToClose) return; ReadyToClose = true; clock.Stop(); Save();
-        input?.Dispose(); tray?.Dispose(); wardrobeWindow?.Close(); reminderWindow?.Close(); balloon?.Close();
+        input?.Dispose(); tray?.Dispose(); wardrobeWindow?.Close(); reminderWindow?.Close(); balloon?.Close(); timerWindow?.Close(); timerBalloon?.Close();
         SystemEvents.DisplaySettingsChanged -= DisplayChanged; SystemEvents.SessionSwitch -= SessionChanged; SystemEvents.PowerModeChanged -= PowerChanged;
         if (testRoot != null && Directory.Exists(testRoot)) Directory.Delete(testRoot, true);
     }
@@ -250,10 +257,11 @@ internal sealed class PetWindow : Window
         Pet.Export(Path.Combine(folder, "live-typing.png"));
         bool connected = input?.Connected == true;
         bool contact = Pet.LastDrawnState == "typing" && Pet.LastDrawnCel is 1 or 3;
-        var report = new { version = "0.9.4", registeredRawInput = connected, inputError = input?.LastError, physicalInputTested = false, callbackCount = Model.Saved.Count, immediateContact = contact, sprites = Catalog.States.Count * 4, outfits = Catalog.Outfits.Length, windowVisible = IsVisible, width = ActualWidth, height = ActualHeight };
+        var report = new { version = typeof(Program).Assembly.GetName().Version?.ToString(3), registeredRawInput = connected, inputError = input?.LastError, physicalInputTested = false, callbackCount = Model.Saved.Count, immediateContact = contact, sprites = Catalog.States.Count * 4, outfits = Catalog.Outfits.Length, windowVisible = IsVisible, width = ActualWidth, height = ActualHeight };
         File.WriteAllText(Path.Combine(folder, "report.json"), JsonSerializer.Serialize(report, StateStore.JsonOptions));
         SmokeSucceeded = connected && contact && IsVisible && Catalog.Outfits.Length == 100 && Catalog.States.Count == 12;
         RenderPreviews(folder);
+        SmokeSucceeded = RunTimerSmoke(folder) && SmokeSucceeded;
     }
     private void RenderPreviews(string folder)
     {
